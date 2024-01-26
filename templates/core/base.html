@@ -11,10 +11,13 @@
 <body>
     <nav class="navbar is-dark">
         <div class="navbar-brand">
-            <a class="navbar-item"><strong>Remote Jobs</strong></a>
+            <a href="/" class="navbar-item"><strong>Remote Jobs</strong></a>
         </div>
         <div class="navbar-menu">
             <div class="navbar-end">
+                {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="navbar-item">Dashboard</a>
+                {% endif %}
                 <div class="navbar-item">
                     <div class="buttons">
                         {% if user.is_authenticated %}

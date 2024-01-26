@@ -19,7 +19,8 @@ from django.urls import path
 
 from apps.core.views import frontpage, signup
 from django.contrib.auth import views as auth_views
-from apps.job.views import job_detail
+from apps.job.views import job_detail, AddJobView
+from apps.userprofile.views import dashboard
 
 urlpatterns = [
     path('', frontpage, name='frontpage'),
@@ -28,6 +29,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('login/', auth_views.LoginView.as_view(template_name='core/login.html'), name='login'),
 
-    path('jobs/<int:job_id>/', job_detail, name='job_detail')
+    path('jobs/<int:job_id>/', job_detail, name='job_detail'),
+    path('jobs/add/', AddJobView.as_view(), name='add_job'),
+    path('dashboard/', dashboard, name='dashboard'),
 
 ]
