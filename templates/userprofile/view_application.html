@@ -11,9 +11,53 @@
         <p><strong> Description: </strong><br>{{ application.content }}</p>
 
         <p><strong>Experience: </strong><br> {{ application.experience }}</p>
+
     </div>
 </div>
 
+<div class="container is-max-desktop">
+    {% for message in application.conversationmessages.all %}
+    {% if message.created_by.is_employer %}
+    <div class="notification is-light">
+        <b>{{ message.created_by.username }}</b> <small>{{ message.created_at|timesince }} ago</small> <br>
+
+        {{ message.content }}
+    </div>
+    {% else %}
+    <div class="notification is-secondary ml-4">
+        <b>{{ message.created_by.username }}</b> <small>{{ message.created_at|timesince }} ago</small> <br>
+
+        {{ message.content }}
+    </div>
+    {% endif %}
+    {% empty %}
+    <p>No messages yet...</p>
+
+    <hr>
+    {% endfor %}
+
+</div>
+
+<div class="container is-max-desktop mt-3">
+
+
+    <form method="POST" action="">
+
+        {% csrf_token %}
+
+        <div class="field">
+            <div class="control">
+                <textarea name="content" id="id_content" class="textarea" placeholder="Your content..."></textarea>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-success">Send</button>
+            </div>
+        </div>
+    </form>
+</div>
 
 {% endblock %}
 ```

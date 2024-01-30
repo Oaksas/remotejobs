@@ -56,3 +56,9 @@ class ApplyForJobView(FormView, DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = self.get_form()
         return context
+
+
+def get_all_jobs(request):
+    jobs = Job.objects.all()
+
+    return render(request, 'job/all_jobs.html', {'jobs': jobs})

@@ -7,23 +7,22 @@
     <div class="notification is-secondary">
         {% if userprofile.is_employer %}
 
-        <div class="is-flex is-justify-content-space-between is-fullwidth has-background-black">
-            <div>
-            
-                <a href="{% url 'add_job' %}" class="button is-success mb-2">Add job</a>
-            </div>
-            
-            <div>
+        <div class="columns is-hcentered">
+            <div class="column is-10">
                 <h2 class="button is-warning is-light">Jobs</h2>
                 
                         {% for job in request.user.jobs.all %}
-                            <div class="job">
+                            <div >
                                 <a href="{% url 'view_dashboard_job' job.id %}" class="button is-light subtitle">{{ job.title }} </a>
                             </div>
                         {% empty %}
                             <p>You don't have any jobs yet...</p>
                         {% endfor %}
-                    {% else %}
+                        <div class="column is-2">
+                        
+                            <a href="{% url 'add_job' %}" class="button is-success ">Add job</a>
+                        </div>
+      {% else %}
                         <h2 class="title">Applications</h2>
                  
                        {% for application in request.user.applications.all %}
@@ -35,6 +34,7 @@
                         {% endfor %} 
                     {% endif %}
             </div>
+            
         </div>
     </div>
 </div>

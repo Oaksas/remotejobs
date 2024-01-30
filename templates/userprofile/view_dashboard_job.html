@@ -4,19 +4,24 @@
 
 <div class="container is-max-desktop">
     <div class="notification is-secondary">
-        <h1 class="subtitle"> {{job.title}}</h1>
+        <h1 class="title"> {{job.title}}</h1>
 
         <small>{{job.short_description}}</small>
         <p><strong> </strong><br>{{ application.content }}</p>
 
         <p><strong>Description: </strong><br> {{ job.long_description }}</p>
          
+        
+    </div>
+
+    <div class="notification is-light">
+        <h1 class="title">Applications</h1>
+        
         {% for application in  job.applications.all %}
-
+    
         <a href="{% url 'view_application' application.id %}">{{ application.created_by.username }}</a>
-
+    
         {% endfor %}
-
     </div>
 </div>
 
