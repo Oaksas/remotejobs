@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div class="container is-max-desktop">
+    <div class="notification is-secondary">
+        <h1 class="title"> View Application</h1>
+        <h2 class="subtitle"> {{application.job.title}}</h2>
+
+        <small>{{application.created_at}}</small>
+        <p><strong> Description: </strong><br>{{ application.content }}</p>
+
+        <p><strong>Experience: </strong><br> {{ application.experience }}</p>
+    </div>
+</div>
+
+
+{% endblock %}
+```

@@ -5,7 +5,7 @@
     {% if userprofile.is_employer %}
         <h2 class="subtitle">Jobs</h2>
 
-        {% comment %} <a href="{% url 'add_job' %}" class="button is-success">Add job</a> {% endcomment %}
+        <a href="{% url 'add_job' %}" class="button is-success">Add job</a>
 
         {% for job in request.user.jobs.all %}
             <div class="job">
@@ -16,13 +16,13 @@
         {% endfor %}
     {% else %}
         <h2 class="title">Applications</h2>
-
-        {% comment %} {% for application in request.user.applications.all %}
+ 
+       {% for application in request.user.applications.all %}
             <div class="application">
                 <a href="{% url 'view_application' application.id %}">{{ application.job.title }}</a>
             </div>
         {% empty %}
             <p>You haven't applied for any jobs yet...</p>
-        {% endfor %} {% endcomment %}
+        {% endfor %} 
     {% endif %}
 {% endblock %}

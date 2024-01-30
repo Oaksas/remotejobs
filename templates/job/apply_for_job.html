@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="is-flex is-justify-content-space-between is-5 gap-3 ">
+    <button class="button is-info mr-4 mb-4 ">Apply for</button>
+    <h1 class="title">{{job.title}}</h1>
+</div>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {% if form.errors %}
+    {% for error in form.errors %}
+    <div class="notification is-danger">
+        {{ error }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="field">
+        <label>Content</label>
+        <div class="control">
+            <textarea class="textarea" name="content" id="id_content"></textarea>
+        </div>
+    </div>
+
+    <div class="field">
+        <label>Experience</label>
+        <div class="control">
+            <textarea class="textarea" name="experience" id="id_experience"></textarea>
+        </div>
+    </div>
+
+
+    <div class="field">
+        <div class="control">
+            <button class="button is-success">Add Job</button>
+
+        </div>
+
+    </div>
+
+</form>
+
+{% endblock %}
