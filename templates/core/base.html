@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Remote Jobs</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-    <link rel="stylesheet" href="{% static "main.css" %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
 
 <body>
@@ -20,7 +20,8 @@
                 {% if user.is_authenticated %}
                 <a href="{% url 'dashboard' %}" class="navbar-item">Dashboard</a>
                 <a href="{% url 'all_jobs' %}" class="navbar-item">All Jobs</a>
-                <a href="{%url 'notifications'%}" class="navbar-item"><ion-icon name="notifications-outline" size="medium"></ion-icon> {{notifications.count}}</a>
+                <a href="{%url 'notifications'%}" class="navbar-item"><ion-icon name="notifications-outline"
+                        size="medium"></ion-icon> {{notifications.count}}</a>
                 {% endif %}
                 <div class="navbar-item">
                     <div class="buttons">
@@ -46,8 +47,26 @@
         {% endblock %}
     </section>
 
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p class="">
+                <strong class="title">Remote Jobs</strong>
+            </p>
+            <p>
+                by <a href="https://www.linkedin.com/in/woldeamanual-getnet" target="_blank"> <small> Woldeamanual
+                        Getnet</small>
+                </a>
+                &copy;
+                <script>document.write(new Date().getFullYear())</script>
+            </p>
+
+
+        </div>
+    </footer>
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 </body>
 
 </html>

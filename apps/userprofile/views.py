@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from apps.job.models import Application, Job
 from .models import ConversationMessage
+from apps.notification.models import Notification
+from apps.notification.utilities import createNotification
 
 
 @login_required
@@ -23,8 +25,8 @@ def view_application(request, application_id):
         if (content):
             conversationmessage = ConversationMessage.objects.create(
                 application=application, content=content, created_by=request.user)
-            print(conversationmessage)
-
+            createNotification(request, to_user=application.created_by,
+                               notification_type=Notification.MESSAGE, extra_id=application.id)
             return redirect('view_application', application_id=application_id)
 
     return render(request, 'userprofile/view_application.html', {'application': application})
