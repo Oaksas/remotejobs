@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 from .models import Job
+from apps.job.models import Application
 from .forms import AddJobForm, ApplicationForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
@@ -37,8 +39,16 @@ class ApplyForJobView(FormView, DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        form = self.get_form()
-        return self.render_to_response(self.get_context_data(form=form))
+        has_applied = self.has_user_applied(self.object)
+        print('-----------------------------------------------')
+        print(has_applied)
+        context = self.get_context_data(
+            form=self.get_form(), has_applied=has_applied)
+        return self.render_to_response(context)
+
+    def has_user_applied(self, job):
+        user = self.request.user
+        return Application.objects.filter(job=job, created_by=user).exists()
 
     def form_valid(self, form):
         job = self.get_object()
@@ -60,5 +70,4 @@ class ApplyForJobView(FormView, DetailView):
 
 def get_all_jobs(request):
     jobs = Job.objects.all()
-
     return render(request, 'job/all_jobs.html', {'jobs': jobs})

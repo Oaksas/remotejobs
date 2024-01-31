@@ -23,6 +23,7 @@ def view_application(request, application_id):
         if (content):
             conversationmessage = ConversationMessage.objects.create(
                 application=application, content=content, created_by=request.user)
+            print(conversationmessage)
 
             return redirect('view_application', application_id=application_id)
 

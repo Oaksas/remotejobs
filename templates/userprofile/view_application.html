@@ -4,8 +4,7 @@
 
 <div class="container is-max-desktop">
     <div class="notification is-secondary">
-        <h1 class="title"> View Application</h1>
-        <h2 class="subtitle"> {{application.job.title}}</h2>
+        <h2 class="title"> {{application.job.title}}</h2>
 
         <small>{{application.created_at}}</small>
         <p><strong> Description: </strong><br>{{ application.content }}</p>
@@ -17,17 +16,17 @@
 
 <div class="container is-max-desktop">
     {% for message in application.conversationmessages.all %}
-    {% if message.created_by.is_employer %}
-    <div class="notification is-light">
+    {% if message.created_by.userprofile.is_employer %}
+    <div class="notification is-light mt-3">
         <b>{{ message.created_by.username }}</b> <small>{{ message.created_at|timesince }} ago</small> <br>
 
         {{ message.content }}
     </div>
     {% else %}
-    <div class="notification is-secondary ml-4">
-        <b>{{ message.created_by.username }}</b> <small>{{ message.created_at|timesince }} ago</small> <br>
+    <div class="notification is-dark ml-4 mt-3">
+        {{ message.content }} <br>
+        <b>{{ message.created_by.username }}</b> <small>{{ message.created_at|timesince }} ago</small> 
 
-        {{ message.content }}
     </div>
     {% endif %}
     {% empty %}

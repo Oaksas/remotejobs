@@ -11,8 +11,8 @@
 <p>{{ job.long_description }}</p>
 
 
-{% if userprofile.is_employer %}
-{% comment %} <a href="{% url 'edit_job' job.id %}" class="button is-primary">Edit</a> {% endcomment %}
+{% if user.is_authenticated and user.userprofile.is_employer %}
+ <div></div>
 {% else %}
 <a href="{% url 'apply_for_job' job.id %}" class="button is-primary">Apply</a>
 
