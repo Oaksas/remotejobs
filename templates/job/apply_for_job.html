@@ -1,6 +1,8 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+
+<div class="container mt-5">
 <div class="is-flex is-justify-content-space-between is-5 gap-3 ">
     <button class="button is-info mr-4 mb-4 ">/></button>
     <h1 class="title">{{job.title}}</h1>
@@ -48,4 +50,6 @@
     <a href="{% url 'view_application' job.id %}">View Application</a>
 
 {% endif %}
+
+</div>
 {% endblock %}

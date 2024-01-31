@@ -1,22 +1,31 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+<div class="container ">
+    <h1 class="title">
+        <button class="button is-info mr-4 ">/></button>
+        {{ job.title }}
+    </h1>
 
-<h1 class="title">
-    {{ job.title }}
-</h1>
-<p class="is-size-4">
-    {{job.short_description}}
-</p>
-<p>{{ job.long_description }}</p>
+    <div class="notification">
+        <p class="is-size-5">
+            {{job.short_description}}
+        </p>
+    </div>
 
+    <div class="notification is-size-5">
+        <p>{{ job.long_description }}</p>
 
-{% if user.is_authenticated and user.userprofile.is_employer %}
- <div></div>
-{% else %}
-<a href="{% url 'apply_for_job' job.id %}" class="button is-primary">Apply</a>
+    </div>
 
-{% endif %}
+    {% if user.is_authenticated and user.userprofile.is_employer %}
+    <div></div>
+    {% else %}
+    <a href="{% url 'apply_for_job' job.id %}" class="button is-primary">Apply</a>
+
+    {% endif %}
+
+</div>
 
 
 {% endblock %}
