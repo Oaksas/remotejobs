@@ -44,7 +44,8 @@
 
 {% else %}
 
-    <p>Your application has been submitted successfully!</p>
+    <p>You have already applied !</p>
+    <a href="{% url 'view_application' job.id %}">View Application</a>
 
 {% endif %}
 {% endblock %}

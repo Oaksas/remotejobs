@@ -2,13 +2,15 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-
+from apps.notification.utilities import createNotification
+from apps.notification.models import Notification
 from .models import Job
 from apps.job.models import Application
 from .forms import AddJobForm, ApplicationForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView, FormView
+
 
 # Create your views here.
 
@@ -56,6 +58,9 @@ class ApplyForJobView(FormView, DetailView):
         application.job = job
         application.created_by = self.request.user
         application.save()
+
+        createNotification(self.request, to_user=job.created_by,
+                           notification_type=Notification.APPLICATION, extra_id=application.id)
         return redirect('dashboard')
 
     def get_object(self, queryset=None):
