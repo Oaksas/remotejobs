@@ -15,10 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
-from apps.core.views import frontpage, signup
+from apps.core.views import frontpage, signup, page_not_found
 from django.contrib.auth import views as auth_views
+from django.conf.urls import handler404
 
 
 urlpatterns = [
@@ -31,5 +32,10 @@ urlpatterns = [
     path('jobs/', include('apps.job.urls')),
     path('dashboard/', include('apps.userprofile.urls')),
     path('notifications/', include('apps.notification.urls')),
+    re_path(r'^.*/$', page_not_found, name='404'),
+
+
 
 ]
+
+handler404 = 'apps.core.views.page_not_found'

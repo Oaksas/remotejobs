@@ -34,3 +34,7 @@ def signup(request):
             return redirect('dashboard')
     form = UserCreationForm()
     return render(request, 'core/signup.html', {'form': form})
+
+
+def page_not_found(request, *args, **kwargs):
+    return render(request, 'core/404.html', status=404)
