@@ -4,32 +4,102 @@
 <form action="" method="post">
     {% csrf_token %}
     {% if form.errors %}
-    {% for error in form.errors %}
     <div class="notification is-danger">
-        {{ error }}
+        <ul>
+            {% for field, error_list in form.errors.items %}
+            {% for error in error_list %}
+            <li>{{ field }}: {{ error }}</li>
+            {% endfor %}
+            {% endfor %}
+        </ul>
     </div>
-    {% endfor %}
     {% endif %}
 
     <div class="field">
-        <label>Title</label>
+        <!-- <label>Title</label> -->
         <div class="control">
-            <input class="input" type="text" name="title" id="id_title">
+            <input class="input" type="text" name="title" id="id_title" placeholder="Job Title">
         </div>
     </div>
 
     <div class="field">
-        <label>Short Description</label>
+        <!-- <label>Short Description</label> -->
         <div class="control">
-            <textarea class="textarea" name="short_description" id="id_short_description"></textarea>
+            <textarea class="textarea" name="short_description" id="id_short_description"
+                placeholder="Short Description"></textarea>
         </div>
     </div>
 
 
     <div class="field">
-        <label>Long Description</label>
+        <!-- <label>Long Description</label> -->
         <div class="control">
-            <textarea class="textarea" name="long_description" id="id_long_description"></textarea>
+            <textarea class="textarea" name="long_description" id="id_long_description"
+                placeholder="Long Description"></textarea>
+        </div>
+    </div>
+
+
+    <div class="field">
+        <!-- <label>Company Name</label> -->
+        <div class="control">
+            <input class="input" type="text" name="company_name" id="id_company_name"
+                placeholder="Your company name...">
+        </div>
+    </div>
+
+    <div class="field">
+        <!-- <label>Company Address</label> -->
+        <div class="control">
+            <input class="input" type="text" name="company_address" id="id_company_address"
+                placeholder="Company address">
+        </div>
+    </div>
+
+
+    <div class="field">
+        <!-- <label>Zip Code</label> -->
+        <div class="control">
+            <input class="input" type="text" name="company_zip_code" id="id_company_zip_code" placeholder="Zip code">
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <div class="select is-info">
+                <select name="company_country" id="id_company_country">
+                    <option value="">Choose country</option>
+                    {% for country in countries %}
+                    <option value="{{ country }}">{{ country }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="field">
+        <div class="control">
+            <div class=" select is-info">
+                <select name="company_size" id="id_company_size">
+                    <option value="">Choose Size</option>
+                    <option value="size_1-10">1-10</option>
+                    <option value="size_11-50">10-50</option>
+                    <option value="size_51-200">50-100</option>
+                    <option value="size_201-500">100-500</option>
+                </select>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="field">
+        <div class="control">
+            <input class="input" type="text" name="salary" id="id_salary" placeholder="Salary in USD"
+                placeholder="Salary">
         </div>
     </div>
 

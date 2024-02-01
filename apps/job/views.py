@@ -10,6 +10,7 @@ from .forms import AddJobForm, ApplicationForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView, FormView
+from .utilities import countries
 
 
 # Create your views here.
@@ -22,6 +23,7 @@ def job_detail(request, job_id):
 
 @method_decorator(login_required, name='dispatch')
 class AddJobView(CreateView):
+
     model = Job
     form_class = AddJobForm
     template_name = 'job/add_job.html'
@@ -30,6 +32,13 @@ class AddJobView(CreateView):
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['countries'] = countries
+
+        return context
 
 
 @method_decorator(login_required, name='dispatch')
