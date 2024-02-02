@@ -4,7 +4,15 @@
 
 
 <div class="container is-max-desktop">
-    <h2 class="button is-warning is-light">Your Jobs</h2>
+    {% if userprofile.is_employer %}
+        <h1 class="title">Welcome, {{ userprofile.company_name }}</h1>
+            <h2 class="button is-warning is-light">Your Jobs</h2>
+
+    {% else %}
+        <h1 class="title">Welcome, {{ userprofile.user.username }}</h1>
+        <h2 class="button is-warning is-light">Your Applications</h2>
+
+    {% endif %}
     <div class="notification is-secondary">
         {% if userprofile.is_employer %}
 
@@ -13,7 +21,7 @@
                 
                         {% for job in request.user.jobs.all %}
                             <div >
-                                <a href="{% url 'view_dashboard_job' job.id %}" class="button is-light subtitle">{{ job.title }} </a>
+                                <a href="{% url 'view_dashboard_job' job.id %}" class="button is-light subtitle">{{ job.title }}  </a>
                             </div>
                         {% empty %}
                             <p>You don't have any jobs yet...</p>

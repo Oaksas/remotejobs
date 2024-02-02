@@ -38,4 +38,4 @@ urlpatterns = [
 
 ]
 
-# handler404 = 'apps.core.views.page_not_found'
+handler404 = 'apps.core.views.page_not_found'

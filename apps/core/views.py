@@ -8,32 +8,41 @@ from apps.userprofile.models import UserProfile
 
 
 def frontpage(request):
-    jobs = Job.objects.filter(job_status='open').order_by('-created_at')[:3]
-    return render(request, 'core/frontPage.html', {'jobs': jobs})
+    try:
+        jobs = Job.objects.filter(
+            job_status='open').order_by('-created_at')[:3]
+        return render(request, 'core/frontPage.html', {'jobs': jobs})
+    except Exception as e:
+        print(e)
+        return redirect('frontpage')
 
 
 def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            # Save the new user to the database
-            user = form.save()
-            account_type = request.POST.get('account_type', 'jobseeker')
-            if account_type == 'employer':
+    try:
+        if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                # Save the new user to the database
+                user = form.save()
+                account_type = request.POST.get('account_type', 'jobseeker')
+                if account_type == 'employer':
 
-                userprofile = UserProfile.objects.create(
-                    user=user, is_employer=True)
-                print(userprofile)
-                userprofile.save()
-            else:
-                userprofile = UserProfile.objects.create(
-                    user=user, is_employer=False)
-                userprofile.save()
-            login(request, user)
-            # Redirect to the home page
-            return redirect('dashboard')
-    form = UserCreationForm()
-    return render(request, 'core/signup.html', {'form': form})
+                    userprofile = UserProfile.objects.create(
+                        user=user, is_employer=True)
+                    print(userprofile)
+                    userprofile.save()
+                else:
+                    userprofile = UserProfile.objects.create(
+                        user=user, is_employer=False)
+                    userprofile.save()
+                login(request, user)
+                # Redirect to the home page
+                return redirect('dashboard')
+        form = UserCreationForm()
+        return render(request, 'core/signup.html', {'form': form})
+    except Exception as e:
+        print(e)
+        return redirect('frontpage')
 
 
 def page_not_found(request, *args, **kwargs):
