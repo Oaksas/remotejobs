@@ -8,7 +8,7 @@ from apps.userprofile.models import UserProfile
 
 
 def frontpage(request):
-    jobs = Job.objects.all().order_by('-created_at')[:3]
+    jobs = Job.objects.filter(job_status='open').order_by('-created_at')[:3]
     return render(request, 'core/frontPage.html', {'jobs': jobs})
 
 
