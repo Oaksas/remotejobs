@@ -18,7 +18,8 @@
     <div class="field">
         <!-- <label>Title</label> -->
         <div class="control">
-            <input class="input" type="text" name="title" id="id_title" placeholder="Job Title">
+            <input class="input" type="text" name="title" id="id_title" placeholder="Job Title"
+                value="{% if job.title %}{{ job.title }} {% endif %}">
         </div>
     </div>
 
@@ -26,7 +27,7 @@
         <!-- <label>Short Description</label> -->
         <div class="control">
             <textarea class="textarea" name="short_description" id="id_short_description"
-                placeholder="Short Description"></textarea>
+                placeholder="Short Description"> {% if job.short_description %} {{ job.short_description }} {% endif %}</textarea>
         </div>
     </div>
 
@@ -35,7 +36,7 @@
         <!-- <label>Long Description</label> -->
         <div class="control">
             <textarea class="textarea" name="long_description" id="id_long_description"
-                placeholder="Long Description"></textarea>
+                placeholder="Long Description">{% if job.long_description %} {{ job.long_description }} {% endif %}</textarea>
         </div>
     </div>
 
@@ -44,7 +45,7 @@
         <!-- <label>Company Name</label> -->
         <div class="control">
             <input class="input" type="text" name="company_name" id="id_company_name"
-                placeholder="Your company name...">
+                value="{% if job.company_name %}{{ job.company_name }} {% endif %}" placeholder="Your company name...">
         </div>
     </div>
 
@@ -52,7 +53,7 @@
         <!-- <label>Company Address</label> -->
         <div class="control">
             <input class="input" type="text" name="company_address" id="id_company_address"
-                placeholder="Company address">
+                value="{% if job.company_address %}{{ job.company_address }} {% endif %}" placeholder="Company address">
         </div>
     </div>
 
@@ -60,7 +61,8 @@
     <div class="field">
         <!-- <label>Zip Code</label> -->
         <div class="control">
-            <input class="input" type="text" name="company_zip_code" id="id_company_zip_code" placeholder="Zip code">
+            <input class="input" type="text" name="company_zipcode" id="id_company_zipcode" placeholder="Zip code"
+                value="{% if job.company_zipcode %}{{ job.company_zipcode }} {% endif %}">
         </div>
     </div>
 
@@ -70,25 +72,28 @@
                 <select name="company_country" id="id_company_country">
                     <option value="">Choose country</option>
                     {% for country in countries %}
+                    {% if job.company_country == country %}
+                    <option value="{{ country }}" selected>{{ country }}</option>
+                    {% else %}
                     <option value="{{ country }}">{{ country }}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
-
             </div>
         </div>
-
     </div>
 
-    
     <div class="field">
         <div class="control">
             <div class="select is-info">
-                <select name="category" id="id_category">
+                <select name="job_type" id="id_job_type">
                     <option value="">Choose Job Type</option>
                     {% for job_type_key, job_type_label in JOB_TYPE %}
-                    <option value="{{ job_type_key }}" >
-                        {{ job_type_label }}
-                    </option>
+                    {% if job.job_type == job_type_key %}
+                    <option value="{{ job_type_key }}" selected>{{ job_type_label }}</option>
+                    {% else %}
+                    <option value="{{ job_type_key }}">{{ job_type_label }}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>
@@ -102,9 +107,11 @@
                 <select name="category" id="id_category">
                     <option value="">Choose category</option>
                     {% for category_key, category_label in JOB_CATEGORY %}
-                    <option value="{{ category_key }}" >
-                        {{ category_label }}
-                    </option>
+                    {% if job.category == category_key %}
+                    <option value="{{ category_key }}" selected>{{ category_label }}</option>
+                    {% else %}
+                    <option value="{{ category_key }}">{{ category_label }}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>
@@ -119,10 +126,30 @@
             <div class=" select is-info">
                 <select name="company_size" id="id_company_size">
                     <option value="">Choose Size</option>
+
+                    {% if job.company_size == 'size_1-10' %}
+                    <option value="size_1-10" selected>1-10</option>
+                    {% else %}
                     <option value="size_1-10">1-10</option>
+                    {% endif %}
+
+                    {% if job.company_size == 'size_11-50' %}
+                    <option value="size_11-50" selected>10-50</option>
+                    {% else %}
                     <option value="size_11-50">10-50</option>
+                    {% endif %}
+
+                    {% if job.company_size == 'size_51-200' %}
+                    <option value="size_51-200" selected>50-100</option>
+                    {% else %}
                     <option value="size_51-200">50-100</option>
+                    {% endif %}
+
+                    {% if job.company_size == 'size_201-500' %}
+                    <option value="size_201-500" selected>100-500</option>
+                    {% else %}
                     <option value="size_201-500">100-500</option>
+                    {% endif %}
                 </select>
 
             </div>
@@ -132,7 +159,7 @@
     <div class="field">
         <div class="control">
             <input class="input" type="text" name="salary" id="id_salary" placeholder="Salary in USD"
-                placeholder="Salary">
+                value="{% if job.salary %}{{ job.salary }} {% endif %}">
         </div>
     </div>
 
@@ -141,8 +168,13 @@
             <div class=" select is-info">
                 <select name="job_status" id="id_job_status">
                     <option value="">Choose Job Status</option>
-                    <option value="open" >Open</option>
-                    <option value="closed" >Closed</option>
+                    {% for job_status_key, job_status_label in JOB_STATUS %}
+                    {% if job.job_status == job_status_key %}
+                    <option value="{{ job_status_key }}" selected>{{ job_status_label }}</option>
+                    {% else %}
+                    <option value="{{ job_status_key }}">{{ job_status_label }}</option>
+                    {% endif %}
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -152,7 +184,7 @@
 
     <div class="field">
         <div class="control">
-            <button class="button is-success">Add Job</button>
+            <button class="button is-success">Save Changes</button>
 
         </div>
 

@@ -2,25 +2,57 @@
 
 {% block content %}
 
-<div class="container is-max-desktop">
-    <div class="notification is-secondary">
-        <h1 class="title"> {{job.title}}</h1>
+<div class="container ">
+    <div class="container ">
+        <h1 class="title">
+            <div class="is-flex is-align-items-center ">
+                <button class="button is-info mr-4 ">/></button>
+                <span class="mr-5"> {{ job.title }}</span> <ion-icon name="wallet-outline"></ion-icon>
+                <div>
+                    <strong class="subtitle has-text-success title  ">$ {{ job.salary }}</strong>
+                    <small class="subtitle"><i class="fas fa-envelope"></i> {{ job.get_job_type_display }}</small>
+                    {% if job.category %}
+                    <small class="subtitle"><i class="fas fa-sharp fa-layer-group"></i> {{job.category}}</small>
+                    {% endif %}
+                    <small class="is-size-7 ">Posted {{job.created_at|timesince}} ago</small>
+                    <a href="{% url 'edit_job' job.id %}" class="button is-success"> Edit Job</a>
+                </div>
+            </div>
+            <div class="mt-3">
+                {% if not job.company_name|lower == 'company name' %}
+                <small class="subtitle has-text-weight-bold mr-4">{{ job.company_name }}</small>
+                {% endif %}
+                <small class="subtitle mr-4">
+                    <i class="fas fa-building"></i> {{job.get_company_size_display}}
+                </small>
+                <small class="subtitle">
+                    <i class="fas fa-solid fa-map-pin"></i> {{job.company_address}}, {{job.company_country}}
+                </small>
+            </div>
 
-        <small>{{job.short_description}}</small>
-        <p><strong> </strong><br>{{ application.content }}</p>
+        </h1>
 
-        <p><strong>Description: </strong><br> {{ job.long_description }}</p>
-         
-        
+        <div class="notification">
+            <p class="is-size-5">
+                <strong> {{job.short_description}}</strong>
+            </p>
+        </div>
+
+        <div class="notification is-size-5">
+            <p>{{ job.long_description }}</p>
+
+        </div>
+
+
     </div>
 
-    <div class="notification is-light">
+    <div class="notification is-dark mt-5">
         <h1 class="title">Applications</h1>
-        
-        {% for application in  job.applications.all %}
-    
+
+        {% for application in job.applications.all %}
+
         <a href="{% url 'view_application' application.id %}">{{ application.created_by.username }}</a>
-    
+
         {% endfor %}
     </div>
 </div>

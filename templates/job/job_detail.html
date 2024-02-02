@@ -3,8 +3,29 @@
 {% block content %}
 <div class="container ">
     <h1 class="title">
-        <button class="button is-info mr-4 ">/></button>
-        {{ job.title }}
+        <div class="is-flex is-align-items-center ">
+            <button class="button is-info mr-4 ">/></button>
+            <span class="mr-5"> {{ job.title }}</span> <ion-icon name="wallet-outline"></ion-icon>
+            <div>
+                <strong class="subtitle has-text-success title  ">$ {{ job.salary }}</strong>
+                <small class="subtitle"><i class="fas fa-envelope"></i> {{ job.get_job_type_display }}</small>
+                {% if job.category %}
+                <small class="subtitle"><i class="fas fa-sharp fa-layer-group"></i> {{job.category}}</small>
+                {% endif %}
+                <small class="is-size-7 ">Posted {{job.created_at|timesince}} ago</small>
+            </div>
+        </div>
+        <div class="mt-3">
+            {% if not job.company_name|lower == 'company name' %}
+            <small class="subtitle has-text-weight-bold mr-4">{{ job.company_name }}</small>
+            {% endif %}
+            <small class="subtitle mr-4">
+                <i class="fas fa-building"></i> {{job.get_company_size_display}}
+            </small>
+            <small class="subtitle">
+                <i class="fas fa-solid fa-map-pin"></i> {{job.company_address}}, {{job.company_country}}
+            </small>
+        </div>
     </h1>
 
     <div class="notification">
@@ -21,7 +42,7 @@
     {% if user.is_authenticated and user.userprofile.is_employer %}
     <div></div>
     {% else %}
-    <a href="{% url 'apply_for_job' job.id %}" class="button is-primary">Apply</a>
+    <a href="{% url 'apply_for_job' job.id %}" class="button is-primary"> <strong>Apply for this job</strong></a>
 
     {% endif %}
 

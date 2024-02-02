@@ -1,7 +1,13 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+
+{% if jobs %}
+<div class="container" style="height: 50vh;">
     <h2 class="title has-text-centered">Newest Jobs</h2>
+
+   {% endif %}
+
     <div class="columns ">
         {% for job in jobs %}
         <div class="column is-4">
@@ -18,21 +24,30 @@
                         </div>
                     </div>
 
-                        <div class="content">
-                            {{ job.short_description }}
-                           
-                            <hr>
+                    <div class="content">
+                        {{ job.short_description }}
 
-                            <a href={% url 'job_detail' job.id %}>View</a>
+                        <hr>
 
-                        </div>
+                        <a href={% url 'job_detail' job.id %}>View</a>
+
                     </div>
-
                 </div>
 
             </div>
-            {% endfor %}
+
+        </div>
+        {% empty %}
+        <div class="column is-12 is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
+            <h2 class="title ">No Jobs Found</h2>
+            <a href="{% url 'add_job' %}" class="button is-success   ">Add job</a>
+
+        </div>
+        {% endfor %}    
+
 
     </div>
+</div>
+
 {% endblock %}
 ```

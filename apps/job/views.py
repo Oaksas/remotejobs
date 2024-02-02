@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -8,16 +8,17 @@ from .models import Job
 from apps.job.models import Application
 from .forms import AddJobForm, ApplicationForm
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView, FormView
-from .utilities import countries
-
+from .utilities import countries, JOB_CATEGORY, CHOISE_JOB_TYPE, CHOISE_JOB_STATUS
 
 # Create your views here.
 
 
 def job_detail(request, job_id):
     job = Job.objects.get(pk=job_id)
+    print(job.company_name)
+
     return render(request, 'job/job_detail.html', {'job': job})
 
 
@@ -33,12 +34,43 @@ class AddJobView(CreateView):
         form.instance.created_by = self.request.user
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['countries'] = countries
+        context['JOB_CATEGORY'] = JOB_CATEGORY
+        context['JOB_TYPE'] = CHOISE_JOB_TYPE
+        context['JOB_STATUS'] = CHOISE_JOB_STATUS
 
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class EditJobView(UpdateView):
+    model = Job
+    form_class = AddJobForm
+    template_name = 'job/edit_job.html'  # Update with the correct template name
+    success_url = reverse_lazy('dashboard')
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['countries'] = countries
+        context['JOB_CATEGORY'] = JOB_CATEGORY
+        context['JOB_TYPE'] = CHOISE_JOB_TYPE
+        context['JOB_STATUS'] = CHOISE_JOB_STATUS
+        return context
+
+    def get_object(self, queryset=None):
+        job_id = self.kwargs.get('job_id')
+        return get_object_or_404(Job, pk=job_id, created_by=self.request.user)
 
 
 @method_decorator(login_required, name='dispatch')

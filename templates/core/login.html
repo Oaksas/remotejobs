@@ -8,6 +8,17 @@
                 <h1 class="title has-text-centered">Login</h1>
                 <form action="." method="post">
                     {% csrf_token %}
+
+                    {% if form.errors %}
+                    <div class="notification is-danger">
+                        <p><strong>Oops! Something went wrong.</strong></p>
+                        <ul>
+                            {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
                     <div class="field">
                         <label class="label">Username</label>
                         <div class="control">

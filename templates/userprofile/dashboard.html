@@ -4,12 +4,12 @@
 
 
 <div class="container is-max-desktop">
+    <h2 class="button is-warning is-light">Your Jobs</h2>
     <div class="notification is-secondary">
         {% if userprofile.is_employer %}
 
         <div class="columns is-hcentered">
             <div class="column is-10">
-                <h2 class="button is-warning is-light">Jobs</h2>
                 
                         {% for job in request.user.jobs.all %}
                             <div >

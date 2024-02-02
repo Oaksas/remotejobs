@@ -8,4 +8,5 @@ urlpatterns = [
          view_application, name="view_application"),
     path('job/<int:job_id>', view_dashboard_job, name="view_dashboard_job"),
 
+
 ]
