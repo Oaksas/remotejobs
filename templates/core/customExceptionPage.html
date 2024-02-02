@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="is-flex is-justify-content-center " style=" height: 100vh;">
+    <div class="columns">
+        
+        <div class="has-text-centered is-half ml-4 mt-5">
+            <h1 class="is-size-1 has-text-weight-bold has-text-primary">{{response.status_code}}</h1>
+            <p class="is-size-6 mb-2">  
+            Something occured while processing your request. Please try again later...
+            </p>
+            <a href="/" class="button is-primary">Go Home</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+```
