@@ -1,4 +1,14 @@
 asgiref==3.7.2
-Django==4.2.9
+autopep8==2.0.4
+distlib==0.3.8
+Django==4.2.7
+djangorestframework==3.14.0
+filelock==3.13.1
+gunicorn==21.2.0
+packaging==23.2
+platformdirs==4.1.0
+pycodestyle==2.11.1
+pytz==2023.3.post1
 sqlparse==0.4.4
-tzdata==2023.4
+tzdata==2023.3
+virtualenv==20.25.0

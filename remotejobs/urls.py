@@ -20,6 +20,10 @@ from django.urls import path, include, re_path
 from apps.core.views import frontpage, signup, page_not_found
 from django.contrib.auth import views as auth_views
 from django.conf.urls import handler404
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 urlpatterns = [
