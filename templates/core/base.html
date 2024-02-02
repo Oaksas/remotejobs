@@ -8,7 +8,8 @@
     <title>Remote Jobs</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="{% static 'main.css' %}">
-    <link rel="stylesheet" type="text/css" href="css/msdropdown/flags.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
 
 </head>
 
@@ -22,6 +23,10 @@
                 {% if user.is_authenticated %}
                 <a href="{% url 'dashboard' %}" class="navbar-item">Dashboard</a>
                 <a href="{% url 'all_jobs' %}" class="navbar-item">All Jobs</a>
+                {% if user.userprofile.is_employer %}
+                <a href="{% url 'add_job' %}" class="navbar-item ">Add job</a>
+                {% endif %}
+
                 <a href="{%url 'notifications'%}" class="navbar-item"><ion-icon name="notifications-outline"
                         size="medium"></ion-icon> {{notifications.count}}</a>
                 {% endif %}
