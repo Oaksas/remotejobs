@@ -48,9 +48,6 @@ Pipfile.lock
 # Ignore coverage reports
 htmlcov/
 
-# Ignore Docker
-Dockerfile
-docker-compose.yml
 
 # Ignore VSCode settings
 .vscode/
