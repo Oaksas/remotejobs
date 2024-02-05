@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remote Jobs</title>
+    <title>RemoteVocation</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -17,8 +17,14 @@
     <nav class="navbar is-dark">
         <div class="navbar-brand">
             <a href="/" class="navbar-item"><strong>Remote Jobs</strong></a>
+            <div class="navbar-burger burger" data-target="navbarMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <div class="navbar-menu">
+    
+        <div id="navbarMenu" class="navbar-menu">
             <div class="navbar-end">
                 {% if user.is_authenticated %}
                 <a href="{% url 'dashboard' %}" class="navbar-item">Dashboard</a>
@@ -26,7 +32,7 @@
                 {% if user.userprofile.is_employer %}
                 <a href="{% url 'add_job' %}" class="navbar-item ">Add job</a>
                 {% endif %}
-
+    
                 <a href="{%url 'notifications'%}" class="navbar-item"><ion-icon name="notifications-outline"
                         size="medium"></ion-icon> {{notifications.count}}</a>
                 {% endif %}
@@ -43,7 +49,6 @@
                         <a href="{% url 'signup' %}" class="button is-primary">
                             <strong>Sign up</strong></a>
                         {% endif %}
-
                     </div>
                 </div>
             </div>
@@ -57,7 +62,7 @@
     <footer class="footer">
         <div class="content has-text-centered">
             <p class="">
-                <strong class="title">Remote Jobs</strong>
+                <strong class="title">RemoteVocation</strong>
             </p>
             <p>
                 by <a href="https://www.linkedin.com/in/woldeamanual-getnet" target="_blank"> <small> Woldeamanual
@@ -74,7 +79,34 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-
+    <script>
+        // Add JavaScript to toggle the navbar menu on mobile
+        document.addEventListener('DOMContentLoaded', function () {
+    
+            // Get all "navbar-burger" elements
+            var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    
+            // Check if there are any navbar burgers
+            if ($navbarBurgers.length > 0) {
+    
+                // Add a click event on each of them
+                $navbarBurgers.forEach(function ($el) {
+                    $el.addEventListener('click', function () {
+    
+                        // Get the target from the "data-target" attribute
+                        var target = $el.dataset.target;
+                        var $target = document.getElementById(target);
+    
+                        // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+                        $el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+    
+                    });
+                });
+            }
+    
+        });
+    </script>
 
 </body>
 
