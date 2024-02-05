@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+.lighticon {
+    color: white !important;
+
+}
+
+.darkicon {
+    color: black !important;
+
+
+}
+
+body {
+    font-family: "Ubuntu", sans-serif;
+    font-style: normal;
+    min-height: 100vh;
+}
+
+
+
+
+.sentMessage {
+    border-radius: 24px 24px 0px 24px;
+    text-align: right;
+    padding-bottom: 2rem;
+}
+
+.receivedMessage {
+    border-radius: 24px 24px 24px 0px;
+    text-align: left;
+    padding-bottom: 2rem;
+
+
+}
