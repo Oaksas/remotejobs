@@ -28,6 +28,10 @@ db.sqlite3
 *~
 *.bak
 
+# AWS Credentials
+
+*.pem
+
 # Secret key
 secret_key.txt
 
