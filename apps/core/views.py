@@ -22,6 +22,7 @@ def signup(request):
         if request.method == 'POST':
             form = UserCreationForm(request.POST)
             if form.is_valid():
+
                 # Save the new user to the database
                 user = form.save()
                 account_type = request.POST.get('account_type', 'jobseeker')
@@ -38,6 +39,10 @@ def signup(request):
                 login(request, user)
                 # Redirect to the home page
                 return redirect('dashboard')
+            else:
+                # Form is not valid, return errors
+                return render(request, 'core/signup.html', {'form': form, 'errors': form.errors})
+            
         form = UserCreationForm()
         return render(request, 'core/signup.html', {'form': form})
     except Exception as e:
